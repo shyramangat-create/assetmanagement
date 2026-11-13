@@ -1,0 +1,6 @@
+Options -Indexes
+
+# This folder stores images only. Prevent uploaded scripts from executing.
+<FilesMatch "(?i)\.(php[0-9]*|phtml|phar|cgi|pl|py|sh|shtml)(\.|$)">
+    Require all denied
+</FilesMatch>
