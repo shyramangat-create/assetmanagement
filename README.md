@@ -42,8 +42,8 @@ A responsive admin-only asset management application built with PHP 8, PDO, MySQ
 
 ## Default administrator login
 
-- Username: `admin`
-- Password: `password`
+- Username: `admin@gmail.com`
+- Password: `admin123`
 
 This is a demonstration credential. **Change it before using real asset records.** One way to generate a password hash is to run this command in a terminal with PHP installed:
 
@@ -56,7 +56,7 @@ Copy the generated hash, then run this query in phpMyAdmin:
 ```sql
 UPDATE admin
 SET password = 'PASTE_THE_GENERATED_HASH_HERE'
-WHERE username = 'admin';
+WHERE username = 'admin@gmail.com';
 ```
 
 The database seed creates one administrator account. The application has no user-management interface or employee table.
