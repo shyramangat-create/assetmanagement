@@ -418,12 +418,6 @@ include __DIR__ . '/../includes/sidebar.php';
     </header>
 
     <div class="content-wrap business-report">
-        <div class="report-print-header">
-            <h2>Asset Management System</h2>
-            <p class="company-contact">123 Sample Street, Sample City, Philippines<br>Contact number: (000) 000-0000 <span class="sample-contact-note">(Sample contact details)</span></p>
-            <h3 class="report-document-title"><?= e($title) ?></h3>
-        </div>
-
         <div class="page-heading no-print">
             <div>
                 <h1><?= e($title) ?></h1>
@@ -510,6 +504,14 @@ include __DIR__ . '/../includes/sidebar.php';
             </div>
         </form>
 
+        <?php $reportPages = $type === 'assets' ? (array_chunk($rows, 11) ?: [[]]) : [$rows]; ?>
+        <?php foreach ($reportPages as $pageIndex => $pageRows): ?>
+        <section class="report-sheet<?= $type === 'assets' ? ' hardware-sheet' : '' ?>">
+        <div class="report-print-header">
+            <h2>Asset Management System</h2>
+            <p class="company-contact">123 Sample Street, Sample City, Philippines<br>Contact number: (000) 000-0000</p>
+            <h3 class="report-document-title"><?= e($title) ?></h3>
+        </div>
         <div class="card report-register">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h3 class="card-title-sm">Detailed records</h3>
@@ -525,7 +527,7 @@ include __DIR__ . '/../includes/sidebar.php';
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($rows as $row): ?>
+                            <?php foreach ($pageRows as $row): ?>
                                 <tr>
                                     <?php foreach ($row as $cell): ?>
                                         <td><?= e($cell) ?></td>
@@ -545,7 +547,7 @@ include __DIR__ . '/../includes/sidebar.php';
                 <?php if ($type === 'expenses' && $rows): ?>
                     <div class="text-end fw-bold mt-3">Total in this report: <?= money($sumAmount) ?></div>
                 <?php endif; ?>
-                <?php if ($type === 'assets'): ?>
+                <?php if ($type === 'assets' && $pageIndex === count($reportPages) - 1): ?>
                     <div class="report-purchase-total">
                         <strong>Total items purchased: <?= number_format($totalRows) ?></strong>
                         <strong>Total purchase cost: <?= money(array_sum(array_column($records, 'purchase_cost'))) ?></strong>
@@ -554,7 +556,9 @@ include __DIR__ . '/../includes/sidebar.php';
             </div>
         </div>
 
-        <div class="report-document-footer"><span>Internal use · <?= e($title) ?></span><span>End of report</span></div>
+        <div class="report-document-footer"><span>Internal use · <?= e($title) ?></span><span><?= $pageIndex === count($reportPages) - 1 ? 'End of report' : 'Continued' ?><?= $type === 'assets' ? ' · Page ' . ($pageIndex + 1) . ' of ' . count($reportPages) : '' ?></span></div>
+        </section>
+        <?php endforeach; ?>
     </div>
 </main>
 

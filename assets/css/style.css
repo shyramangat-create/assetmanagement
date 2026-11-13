@@ -667,7 +667,7 @@ body {
   letter-spacing: 1px;
   margin: 0;
 }
-.sample-contact-note { font-size: 10px; }
+.report-sheet + .report-sheet { margin-top: 30px; }
 .report-purchase-total { display: flex; justify-content: space-between; gap: 20px; padding: 16px 12px; border-top: 2px solid #263445; font-size: 12px; break-inside: avoid; }
 .business-report .report-document-footer { margin-top: 24px; }
 .business-report .report-print-header h2 { font-size: 23px; font-weight: 700; line-height: 1.3; margin: 10px 0 6px; }
@@ -689,6 +689,14 @@ body {
 }
 @media print {
   @page { size: A4 portrait; margin: 18mm 15mm; }
+  .report-sheet + .report-sheet { margin-top: 0; break-before: page; }
+  .hardware-sheet .report-register { break-after: avoid; }
+  .business-report .hardware-sheet .report-print-header { padding-bottom: 14px; margin-bottom: 16px; }
+  .business-report .hardware-sheet .report-print-header .company-contact { margin-bottom: 14px; }
+  .business-report .hardware-sheet .table th,
+  .business-report .hardware-sheet .table td { padding: 7px 6px; font-size: 10pt; line-height: 1.3; }
+  .business-report .hardware-sheet .report-purchase-total { padding: 10px; }
+  .business-report .hardware-sheet .report-document-footer { margin-top: 10px; padding-top: 7px; }
   .business-report .report-print-header { padding: 0 0 20px; margin-bottom: 24px; }
   .business-report .report-print-header .company-contact { margin-bottom: 20px; }
   .business-report .report-print-header h2 { font-size: 23px; }
